@@ -24,7 +24,7 @@ export const ReusableCard: React.FC<ReusableCardProps> = ({ data }) => {
     <Card className="@container/card">
       <CardHeader>
         <CardDescription>{data.description}</CardDescription>
-        <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+        <CardTitle className="flex items-center justify-between text-lg font-semibold">
           {data.value}
         </CardTitle>
         <CardAction>

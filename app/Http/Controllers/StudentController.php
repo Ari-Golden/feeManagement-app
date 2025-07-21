@@ -15,7 +15,7 @@ class StudentController extends Controller
     public function index()
     {
         return Inertia::render('students/index', [
-            'students' => Student::all(),
+            'students' => Student::with(['payments', 'ppdbPayments', 'endOfYearPayments'])->get(),
         ]);
     }
 
@@ -88,6 +88,15 @@ class StudentController extends Controller
     {
         return Inertia::render('students/PrintAllBarcodesPage', [
             'students' => Student::all(),
+        ]);
+    }
+
+    public function showPaymentDetails(Student $student)
+    {
+        $student->load(['payments', 'ppdbPayments', 'endOfYearPayments']);
+
+        return Inertia::render('students/PaymentDetailsModalPage', [
+            'student' => $student->load(['payments', 'ppdbPayments', 'endOfYearPayments']),
         ]);
     }
 }

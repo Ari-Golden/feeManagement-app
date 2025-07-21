@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Users, DollarSign } from 'lucide-react'; // Import DollarSign icon
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -12,6 +12,36 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: '/dashboard',
         icon: LayoutGrid,
+    },
+    {
+        title: 'Students',
+        href: '/students',
+        icon: Users,
+    },
+    {
+        title: 'BPMP Payments',
+        href: '/payments',
+        icon: DollarSign,
+    },
+    {
+        title: 'PPDB Payments',
+        href: '/ppdb-payments',
+        icon: DollarSign,
+    },
+    {
+        title: 'End of Year Payments',
+        href: '/end-of-year-payments',
+        icon: DollarSign,
+    },
+    {
+        title: 'Standard Fees',
+        href: '/standard-fees',
+        icon: DollarSign,
+    },
+    {
+        title: 'Fee Report',
+        href: '/reports',
+        icon: LayoutGrid, // Using LayoutGrid for now, can change to a more suitable icon
     },
 ];
 

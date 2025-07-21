@@ -3,6 +3,8 @@
 import { flexRender, Header } from '@tanstack/react-table'
 import { useDrag, useDrop } from 'react-dnd'
 import { TableHead } from '@/components/ui/table'
+import { Button } from '@/components/ui/button'
+import { ArrowUpDown } from 'lucide-react'
 
 const reorderColumn = (
   draggedColumnId: string,
@@ -26,36 +28,61 @@ export const DraggableColumnHeader = <TData, TValue>({ header, table }: { header
   const { columnOrder } = getState()
   const { column } = header
 
+ 
+
   const [, dropRef] = useDrop({
     accept: 'column',
     drop: (draggedColumn: any) => {
+      console.log('DraggableColumnHeader - Dropped column:', draggedColumn.id, 'onto', column.id); // Log drop event
       const newColumnOrder = reorderColumn(
         draggedColumn.id,
         column.id,
         columnOrder
       )
       setColumnOrder(newColumnOrder)
+      console.log('DraggableColumnHeader - New column order:', newColumnOrder); // Log new column order
     },
   })
 
-  const [{ isDragging }, dragRef, previewRef] = useDrag({
+  const [{ isDragging }, dragRef] = useDrag({
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
-    item: () => column,
+    item: () => {
+      console.log('DraggableColumnHeader - Dragging column:', column.id); // Log drag start
+      return column;
+    },
     type: 'column',
   })
 
   return (
     <TableHead
-      ref={dropRef}
+      ref={node => dropRef(dragRef(node))}
       style={{ opacity: isDragging ? 0.5 : 1 }}
       colSpan={header.colSpan}
+      className="relative"
     >
-      <div ref={dragRef}>
+      <div className="flex items-center space-x-2">
         {header.isPlaceholder
           ? null
-          : flexRender(header.column.columnDef.header, header.getContext())}
+          : column.getCanSort() ? (
+              <Button
+                variant="ghost"
+                onClick={column.getToggleSortingHandler()}
+                className="p-0 h-auto w-full justify-start"
+              >
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
+                {{ asc: <ArrowUpDown className="ml-2 h-4 w-4" />, desc: <ArrowUpDown className="ml-2 h-4 w-4" /> }[column.getIsSorted() as string] ?? <ArrowUpDown className="ml-2 h-4 w-4" />}
+              </Button>
+            ) : (
+              flexRender(
+                header.column.columnDef.header,
+                header.getContext()
+              )
+            )}
       </div>
     </TableHead>
   )

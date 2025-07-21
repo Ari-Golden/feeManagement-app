@@ -4,7 +4,10 @@ import * as React from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import JsBarcode from 'jsbarcode'
-import { router } from '@inertiajs/react' // Import router
+import { router } from '@inertiajs/react'
+import { Payment } from '@/components/payment-table-columns'
+import { PpdbPayment } from '@/components/ppdb-payment-table-columns'
+import { EndOfYearPayment } from '@/components/end-of-year-payment-table-columns'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -19,103 +22,53 @@ import {
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Student = {
-  id: string
+  id: number // Changed from string to number
   no_ppdb: string
   nisn: string
   name: string
   class: string
   barcode_id?: string | null // Add barcode_id
+  payments?: Payment[] // Add payments relation
+  ppdbPayments?: PpdbPayment[] // Add ppdbPayments relation
+  endOfYearPayments?: EndOfYearPayment[] // Add endOfYearPayments relation
 }
 
-export const getColumns = ({ onEdit, onDelete, onView }: { onEdit: (student: Student) => void; onDelete: (student: Student) => void; onView: (student: Student) => void; }): ColumnDef<Student>[] => {
+export const getColumns = ({ onEdit, onDelete, onView, onPaymentDetails }: { onEdit: (student: Student) => void; onDelete: (student: Student) => void; onView: (student: Student) => void; onPaymentDetails: (student: Student) => void; }): ColumnDef<Student>[] => {
   return [
     {
       accessorKey: "id",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            ID
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        )
-      },
+      header: "ID",
+      enableSorting: true,
     },
     {
       accessorKey: "no_ppdb",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            No. PPDB
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        )
-      },
+      header: "No. PPDB",
+      enableSorting: true,
     },
     {
       accessorKey: "nisn",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            NISN
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        )
-      },
+      header: "NISN",
+      enableSorting: true,
     },
     {
       accessorKey: "name",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Name
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        )
-      },
+      header: "Name",
+      enableSorting: true,
     },
     {
       accessorKey: "class",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Class
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        )
-      },
+      header: "Class",
+      enableSorting: true,
     },
     {
       accessorKey: "barcode_id",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Barcode ID
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        )
-      },
+      header: "Barcode ID",
+      enableSorting: true,
     },
     {
       id: "barcode_image",
       header: "Barcode",
+      enableSorting: true,
       cell: ({ row }) => {
         const barcodeId = row.original.barcode_id;
         const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -156,7 +109,7 @@ export const getColumns = ({ onEdit, onDelete, onView }: { onEdit: (student: Stu
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => onView(student)}>View student</DropdownMenuItem>
-              <DropdownMenuItem>View payment details</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => onPaymentDetails(student)}>View payment details</DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => router.visit(route('students.printBarcode', student.id))}
               >
