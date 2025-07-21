@@ -14,22 +14,22 @@ class StandardFeeSeeder extends Seeder
     public function run(): void
     {
         StandardFee::create([
-            'name' => 'BPMP Monthly',
+            'name' => 'BPMP',
             'amount' => 250000,
             'frequency' => 'monthly',
         ]);
 
         StandardFee::create([
-            'name' => 'PPDB Fee',
+            'name' => 'PPDB',
             'amount' => 500000,
             'frequency' => 'once',
         ]);
 
         StandardFee::create([
-            'name' => 'End of Year Fee',
+            'name' => 'End of Year',
             'amount' => 1000000,
             'frequency' => 'once',
         ]);
     }
 }
-}
+
