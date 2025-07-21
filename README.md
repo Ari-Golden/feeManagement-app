@@ -1,33 +1,33 @@
 # Fee Management App
 
-Aplikasi manajemen biaya sederhana yang dibangun dengan Laravel, React, dan Inertia.js, berfokus pada pengelolaan data siswa dan fungsionalitas barcode.
+A simple fee management application built with Laravel, React, and Inertia.js, focusing on student data management and barcode functionality.
 
-## Fitur
+## Features
 
-*   **Manajemen Siswa (CRUD):**
-    *   Melihat daftar siswa dengan tabel data yang dapat diurutkan, difilter, dan diatur ulang kolomnya.
-    *   Menambah siswa baru melalui modal.
-    *   Mengedit detail siswa yang ada melalui modal.
-    *   Menghapus siswa.
-*   **Generasi Barcode Otomatis:** `barcode_id` unik secara otomatis dibuat saat siswa baru ditambahkan.
-*   **Tampilan Barcode:** Menampilkan barcode visual untuk setiap siswa di tabel.
-*   **Cetak Barcode:**
-    *   Mencetak barcode individual untuk siswa tertentu.
-    *   Mencetak semua barcode siswa, dengan 20 barcode per halaman cetak.
-*   **Tabel Data Interaktif:**
-    *   Pengurutan data per kolom.
-    *   Pencarian global di seluruh data tabel.
-    *   Header kolom yang dapat digeser (drag-and-drop) untuk mengatur ulang tampilan.
-*   **Tampilan Detail Siswa:** Melihat detail lengkap siswa melalui modal.
-*   **Progressive Web App (PWA):** Aplikasi dapat diinstal ke perangkat, berjalan secara offline, dan memberikan pengalaman seperti aplikasi native.
-*   **Ekspor ke Excel:** Tabel data sekarang dilengkapi dengan fungsionalitas ekspor data ke file Excel.
-*   **AI Chatbot (Asisten Cerdas):**
-    *   Chatbot AI yang terintegrasi di pojok bawah aplikasi untuk membantu pengguna.
-    *   Dapat menjawab pertanyaan seputar data siswa (jumlah, pencarian nama, kelas), pembayaran (jumlah total, pembayaran terbaru), dan biaya standar (jumlah, daftar).
-    *   Menyertakan tautan langsung ke halaman yang relevan untuk melihat detail data.
-*   **Desain Visual Kustom:** Latar belakang aplikasi dan sidebar menggunakan gradien biru dan maroon untuk tampilan yang unik.
+*   **Student Management (CRUD):**
+    *   View a list of students with sortable, filterable, and reorderable data tables.
+    *   Add new students via a modal.
+    *   Edit existing student details via a modal.
+    *   Delete students.
+*   **Automatic Barcode Generation:** Unique `barcode_id` is automatically generated when a new student is added.
+*   **Barcode Display:** Displays visual barcodes for each student in the table.
+*   **Print Barcodes:**
+    *   Print individual barcodes for specific students.
+    *   Print all student barcodes, with 20 barcodes per print page.
+*   **Interactive Data Table:**
+    *   Column-wise data sorting.
+    *   Global search across all table data.
+    *   Draggable (drag-and-drop) column headers for reordering display.
+*   **Student Detail View:** View complete student details via a modal.
+*   **Progressive Web App (PWA):** The application can be installed on devices, runs offline, and provides a native-like experience.
+*   **Export to Excel:** Data tables now include functionality to export data to Excel files.
+*   **AI Chatbot (Smart Assistant):**
+    *   An AI chatbot integrated into the bottom corner of the application to assist users.
+    *   Can answer questions about student data (count, name search, class), payments (total count, latest payments), and standard fees (count, list).
+    *   Includes direct links to relevant pages for viewing detailed data.
+*   **Custom Visual Design:** The application and sidebar backgrounds use a blue and maroon gradient for a unique look.
 
-## Teknologi yang Digunakan
+## Technologies Used
 
 *   **Backend:**
     *   Laravel (PHP Framework)
@@ -36,71 +36,71 @@ Aplikasi manajemen biaya sederhana yang dibangun dengan Laravel, React, dan Iner
     *   React.js
     *   Inertia.js
     *   Vite (Build Tool)
-    *   Tailwind CSS (untuk styling)
-    *   Shadcn/UI (Komponen UI)
-    *   TanStack Table (untuk tabel data)
-    *   React DND (untuk drag-and-drop header tabel)
-    *   JsBarcode (untuk generasi barcode di frontend)
+    *   Tailwind CSS (for styling)
+    *   Shadcn/UI (UI Components)
+    *   TanStack Table (for data tables)
+    *   React DND (for drag-and-drop table headers)
+    *   JsBarcode (for frontend barcode generation)
 
-## Instalasi
+## Installation
 
-Ikuti langkah-langkah di bawah ini untuk menginstal dan menjalankan proyek secara lokal:
+Follow the steps below to install and run the project locally:
 
-1.  **Clone Repositori:**
+1.  **Clone the Repository:**
     ```bash
-    git clone <URL_REPOSITORI_ANDA>
+    git clone <YOUR_REPOSITORY_URL>
     cd feeManagement-app
     ```
 
-2.  **Instal Dependensi Composer:**
+2.  **Install Composer Dependencies:**
     ```bash
     composer install
     ```
 
-3.  **Instal Dependensi Node.js:**
+3.  **Install Node.js Dependencies:**
     ```bash
     npm install
     ```
 
-4.  **Konfigurasi Environment:**
-    *   Buat file `.env` dari `.env.example`:
+4.  **Environment Configuration:**
+    *   Create a `.env` file from `.env.example`:
         ```bash
         cp .env.example .env
         ```
-    *   Buat kunci aplikasi:
+    *   Generate an application key:
         ```bash
         php artisan key:generate
         ```
-    *   Konfigurasi database Anda di file `.env` (misalnya, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
+    *   Configure your database in the `.env` file (e.g., `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
 
-5.  **Migrasi Database dan Seed Data:**
+5.  **Database Migration and Seed Data:**
     ```bash
     php artisan migrate --seed
     ```
-    Ini akan membuat tabel database yang diperlukan dan mengisi tabel `students` dengan data dummy.
+    This will create the necessary database tables and populate the `students` table with dummy data.
 
-## Penggunaan
+## Usage
 
-1.  **Jalankan Server Laravel:**
+1.  **Run the Laravel Server:**
     ```bash
     php artisan serve
     ```
 
-2.  **Jalankan Server Pengembangan Vite:**
+2.  **Run the Vite Development Server:**
     ```bash
     npm run dev
     ```
 
-3.  **Akses Aplikasi:**
-    Buka browser Anda dan navigasikan ke `http://127.0.0.1:8000` (atau alamat yang ditampilkan oleh `php artisan serve`).
+3.  **Access the Application:**
+    Open your browser and navigate to `http://127.0.0.1:8000` (or the address displayed by `php artisan serve`).
 
-    *   Untuk melihat daftar siswa dan mengelola mereka, navigasikan ke `/students`.
-    *   Pastikan Anda sudah login (jika aplikasi memiliki sistem autentikasi).
+    *   To view and manage students, navigate to `/students`.
+    *   Ensure you are logged in (if the application has an authentication system).
 
-## Kontribusi
+## Contributing
 
-Kontribusi dipersilakan! Silakan fork repositori dan buat pull request dengan fitur atau perbaikan Anda.
+Contributions are welcome! Please fork the repository and create a pull request with your features or bug fixes.
 
-## Lisensi
+## License
 
-Proyek ini dilisensikan di bawah Lisensi MIT.
+This project is licensed under the MIT License.
