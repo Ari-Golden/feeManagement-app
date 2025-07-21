@@ -101,3 +101,4 @@ export default function StudentPage({ students }: { students: Student[] }) {
   )
 }
 
+

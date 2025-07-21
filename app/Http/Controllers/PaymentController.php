@@ -29,7 +29,6 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        
         $validatedData = $request->validate([
             'student_id' => 'required|exists:students,id',
             'amount' => 'required|numeric|min:0',

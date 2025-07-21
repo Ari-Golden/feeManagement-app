@@ -19,6 +19,13 @@ Aplikasi manajemen biaya sederhana yang dibangun dengan Laravel, React, dan Iner
     *   Pencarian global di seluruh data tabel.
     *   Header kolom yang dapat digeser (drag-and-drop) untuk mengatur ulang tampilan.
 *   **Tampilan Detail Siswa:** Melihat detail lengkap siswa melalui modal.
+*   **Progressive Web App (PWA):** Aplikasi dapat diinstal ke perangkat, berjalan secara offline, dan memberikan pengalaman seperti aplikasi native.
+*   **Ekspor ke Excel:** Tabel data sekarang dilengkapi dengan fungsionalitas ekspor data ke file Excel.
+*   **AI Chatbot (Asisten Cerdas):**
+    *   Chatbot AI yang terintegrasi di pojok bawah aplikasi untuk membantu pengguna.
+    *   Dapat menjawab pertanyaan seputar data siswa (jumlah, pencarian nama, kelas), pembayaran (jumlah total, pembayaran terbaru), dan biaya standar (jumlah, daftar).
+    *   Menyertakan tautan langsung ke halaman yang relevan untuk melihat detail data.
+*   **Desain Visual Kustom:** Latar belakang aplikasi dan sidebar menggunakan gradien biru dan maroon untuk tampilan yang unik.
 
 ## Teknologi yang Digunakan
 

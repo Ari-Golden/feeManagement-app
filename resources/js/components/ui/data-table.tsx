@@ -1,7 +1,3 @@
-"use client"
-
-"use client"
-
 import * as React from "react"
 import {
   ColumnDef,
@@ -27,6 +23,8 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DraggableColumnHeader } from "./draggable-header"
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -73,6 +71,15 @@ export function DataTable<TData, TValue>({
     },
   })
 
+  const handleExportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const dataBlob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(dataBlob, 'data.xlsx');
+  };
+
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
@@ -84,6 +91,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+        <Button onClick={handleExportToExcel} className="ml-auto">Export to Excel</Button>
       </div>
       <div className="rounded-md border">
         <Table>
