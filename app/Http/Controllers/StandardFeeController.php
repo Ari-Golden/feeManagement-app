@@ -43,6 +43,8 @@ class StandardFeeController extends Controller
             'name' => 'required|string|max:255|unique:standard_fees,name,' . $standardFee->id,
             'amount' => 'required|numeric|min:0',
             'frequency' => 'nullable|string|max:255',
+            'th_ajaran'=> 'nullable|string|max:255',
+            'note'=> 'nullable|string|max:255',
         ]);
 
         $standardFee->update($validatedData);

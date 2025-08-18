@@ -13,5 +13,7 @@ class StandardFee extends Model
         'name',
         'amount',
         'frequency',
+        'th_ajaran',
+        'note'
     ];
 }

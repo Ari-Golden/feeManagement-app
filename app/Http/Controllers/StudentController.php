@@ -16,6 +16,9 @@ class StudentController extends Controller
     {
         return Inertia::render('students/index', [
             'students' => Student::with(['payments', 'ppdbPayments', 'endOfYearPayments'])->get(),
+            'studentPayments' => Student::with(['payments', 'ppdbPayments', 'endOfYearPayments'])->get(),
+            // 'students' => Student::all(),
+
         ]);
     }
 

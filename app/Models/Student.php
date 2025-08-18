@@ -18,6 +18,9 @@ class Student extends Model
         'name',
         'class',
         'barcode_id',
+        'BPMP_id',
+        'PPDB_id',
+        'EOY_id'
     ];
 
     public function payments()

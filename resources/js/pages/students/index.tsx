@@ -1,104 +1,101 @@
 'use client';
 
-import { getColumns, Student } from '@/components/data-table-columns'
-import { StudentFormModal } from '@/components/StudentFormModal'
-import { StudentViewModal } from '@/components/StudentViewModal'
-import { Button } from '@/components/ui/button'
-import { DataTable } from '@/components/ui/data-table'
-import AppLayout from '@/layouts/app-layout'
-import { Head, router } from '@inertiajs/react'
-import * as React from 'react'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { StudentPaymentDetailsModal } from '@/components/StudentPaymentDetailsModal' // Import the new modal
+import { getColumns, Student } from '@/components/data-table-columns';
+import { studentColumns } from '@/components/student-table-columns ';
+import { StudentFormModal } from '@/components/StudentFormModal';
+import { StudentPaymentDetailsModal } from '@/components/StudentPaymentDetailsModal'; // Import the new modal
+import { StudentViewModal } from '@/components/StudentViewModal';
+import { Button } from '@/components/ui/button';
+import { DataTable } from '@/components/ui/data-table';
+import AppLayout from '@/layouts/app-layout';
+import { Head, router } from '@inertiajs/react';
+import * as React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export default function StudentPage({ students }: { students: Student[] }) {
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
-  const [editingStudent, setEditingStudent] = React.useState<Student | null>(null)
-  const [isViewModalOpen, setIsViewModalOpen] = React.useState(false)
-  const [viewingStudent, setViewingStudent] = React.useState<Student | null>(null)
-  const [isPaymentDetailsModalOpen, setIsPaymentDetailsModalOpen] = React.useState(false) // New state
-  const [paymentDetailsStudent, setPaymentDetailsStudent] = React.useState<Student | null>(null) // New state
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [editingStudent, setEditingStudent] = React.useState<Student | null>(null);
+    const [isViewModalOpen, setIsViewModalOpen] = React.useState(false);
+    const [viewingStudent, setViewingStudent] = React.useState<Student | null>(null);
+    const [isPaymentDetailsModalOpen, setIsPaymentDetailsModalOpen] = React.useState(false); // New state
+    const [paymentDetailsStudent, setPaymentDetailsStudent] = React.useState<Student | null>(null); // New state
 
-  const handleOpenCreateModal = () => {
-    setEditingStudent(null)
-    setIsModalOpen(true)
-  }
+    const handleOpenCreateModal = () => {
+        setEditingStudent(null);
+        setIsModalOpen(true);
+    };
 
-  const handleCloseFormModal = () => {
-    setIsModalOpen(false)
-    setEditingStudent(null)
-  }
+    const handleCloseFormModal = () => {
+        setIsModalOpen(false);
+        setEditingStudent(null);
+    };
 
-  const handleCloseViewModal = () => {
-    setIsViewModalOpen(false)
-    setViewingStudent(null)
-  }
+    const handleCloseViewModal = () => {
+        setIsViewModalOpen(false);
+        setViewingStudent(null);
+    };
 
-  const handleClosePaymentDetailsModal = () => {
-    setIsPaymentDetailsModalOpen(false)
-    setPaymentDetailsStudent(null)
-  }
+    const handleClosePaymentDetailsModal = () => {
+        setIsPaymentDetailsModalOpen(false);
+        setPaymentDetailsStudent(null);
+    };
 
-  const handleEdit = (student: Student) => {
-    setEditingStudent(student)
-    setIsModalOpen(true)
-  }
+    const handleEdit = (student: Student) => {
+        setEditingStudent(student);
+        setIsModalOpen(true);
+    };
 
-  const handleDelete = (student: Student) => {
-    if (confirm(`Are you sure you want to delete ${student.name}?`)) {
-      router.delete(route('students.destroy', student.id), {
-        onSuccess: () => {
-          // Optionally, show a success message or refresh data
-        },
-        onError: (errors) => {
-          console.error('Error deleting student:', errors)
-        },
-      })
-    }
-  }
+    const handleDelete = (student: Student) => {
+        if (confirm(`Are you sure you want to delete ${student.name}?`)) {
+            router.delete(route('students.destroy', student.id), {
+                onSuccess: () => {
+                    // Optionally, show a success message or refresh data
+                },
+                onError: (errors) => {
+                    console.error('Error deleting student:', errors);
+                },
+            });
+        }
+    };
 
-  const handleView = (student: Student) => {
-    setViewingStudent(student)
-    setIsViewModalOpen(true)
-  }
+    const handleView = (student: Student) => {
+        setViewingStudent(student);
+        setIsViewModalOpen(true);
+    };
 
-  const handleViewPaymentDetails = (student: Student) => {
-    setPaymentDetailsStudent(student)
-    setIsPaymentDetailsModalOpen(true)
-  }
+    const handleViewPaymentDetails = (student: Student) => {
+        setPaymentDetailsStudent(student);
+        setIsPaymentDetailsModalOpen(true);
+    };
 
-  const columns = getColumns({ onEdit: handleEdit, onDelete: handleDelete, onView: handleView, onPaymentDetails: handleViewPaymentDetails }) // Pass new handler
-
-  return (
-    <AppLayout breadcrumbs={[
-      { title: 'Students', href: '/students' },
-      { title: 'Manage Students', href: '/students/manage' },
-    ]}>
-      <Head title="Students" />
-      <div className="flex flex-1 flex-col m-4">
-        <DndProvider backend={HTML5Backend}>
-          <div className="container mx-auto py-10">
-            <div className="mb-4 flex items-center justify-between">
-              <h1 className="text-2xl font-bold">Students</h1>
-              <div className="space-x-2">
-                <Button onClick={handleOpenCreateModal}>Add New Student</Button>
-                <Button onClick={() => router.visit(route('students.printAllBarcodes'))}>Print All Barcodes</Button>
-              </div>
+    const columns = getColumns({ onEdit: handleEdit, onDelete: handleDelete, onView: handleView, onPaymentDetails: handleViewPaymentDetails }); // Pass new handler
+    console.log('students:', students);
+    return (
+        <AppLayout
+            breadcrumbs={[
+                { title: 'Students', href: '/students' },
+                { title: 'Manage Students', href: '/students/manage' },
+            ]}
+        >
+            <Head title="Students" />
+            <div className="m-4 flex flex-1 flex-col">
+                <DndProvider backend={HTML5Backend}>
+                    <div className="container mx-auto py-10">
+                        <div className="mb-4 flex items-center justify-between">
+                            <h1 className="text-2xl font-bold">Students</h1>
+                            <div className="space-x-2">
+                                <Button onClick={handleOpenCreateModal}>Add New Student</Button>
+                                <Button onClick={() => router.visit(route('students.printAllBarcodes'))}>Print All Barcodes</Button>
+                            </div>
+                        </div>
+                        <DataTable columns={studentColumns} data={students} />
+                    </div>
+                </DndProvider>
             </div>
-            <DataTable columns={columns} data={students} />
-          </div>
-        </DndProvider>
-      </div>
-      <StudentFormModal isOpen={isModalOpen} onClose={handleCloseFormModal} student={editingStudent} />
-      <StudentViewModal isOpen={isViewModalOpen} onClose={handleCloseViewModal} student={viewingStudent} />
-      <StudentPaymentDetailsModal
-        isOpen={isPaymentDetailsModalOpen}
-        onClose={handleClosePaymentDetailsModal}
-        student={paymentDetailsStudent}
-      />
-    </AppLayout>
-  )
+            <StudentFormModal isOpen={isModalOpen} onClose={handleCloseFormModal} student={editingStudent} />
+            <StudentViewModal isOpen={isViewModalOpen} onClose={handleCloseViewModal} student={viewingStudent} />
+            <StudentPaymentDetailsModal isOpen={isPaymentDetailsModalOpen} onClose={handleClosePaymentDetailsModal} student={paymentDetailsStudent} />
+        </AppLayout>
+    );
 }
-
-
