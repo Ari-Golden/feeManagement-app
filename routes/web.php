@@ -32,6 +32,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('standard-fees/{standardFee}', [App\Http\Controllers\StandardFeeController::class, 'destroy'])->name('standard-fees.destroy');
 
     Route::get('reports', [App\Http\Controllers\ReportController::class, 'index'])->name('reports.index');
+
+    // Route untuk AI Chatbot
+    Route::post('ai-chatbot/process', [App\Http\Controllers\AIChatbotController::class, 'processMessage'])->name('ai-chatbot.process');
 });
 
 require __DIR__.'/settings.php';

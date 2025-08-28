@@ -18,6 +18,29 @@ class AIChatbotController extends Controller
         $userMessage = strtolower($request->input('message'));
         $response = 'Maaf, saya tidak mengerti pertanyaan Anda. Bisakah Anda bertanya tentang siswa, pembayaran, atau biaya standar?';
 
+        // Perintah membuat laporan pembayaran bulan ini dalam format PDF
+        if (str_contains($userMessage, 'laporan pembayaran bulan ini') && str_contains($userMessage, 'pdf')) {
+            $month = now()->month;
+            $year = now()->year;
+            $payments = Payment::whereMonth('payment_date', $month)
+                ->whereYear('payment_date', $year)
+                ->get();
+
+            // Generate PDF
+            $pdf = \Barryvdh\DomPDF\Facades\Pdf::loadView('reports.payments_monthly', [
+                'payments' => $payments,
+                'month' => $month,
+                'year' => $year,
+            ]);
+
+            $filename = 'laporan_pembayaran_' . $month . '_' . $year . '.pdf';
+            $path = storage_path('app/public/' . $filename);
+            $pdf->save($path);
+
+            $downloadUrl = asset('storage/' . $filename);
+            $response = "Laporan pembayaran bulan ini telah dibuat. <a href='" . $downloadUrl . "' target='_blank' class='text-blue-500 hover:underline'>Download PDF</a>";
+        }
+
         if (str_contains($userMessage, 'siswa') || str_contains($userMessage, 'student')) {
             if (str_contains($userMessage, 'jumlah') || str_contains($userMessage, 'berapa banyak')) {
                 $count = Student::count();
